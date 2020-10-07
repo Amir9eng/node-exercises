@@ -1,0 +1,27 @@
+{
+  "name": "node-exercises",
+  "version": "1.0.0",
+  "description": "A simple node server",
+  "main": "index.js",
+  "scripts": {
+    "start":"node index",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Amir9eng/node-exercises.git"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "learning",
+    "javascript",
+    "exercise"
+  ],
+  "author": "Amir Mukhtar <amirmukhtarme@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Amir9eng/node-exercises/issues"
+  },
+  "homepage": "https://github.com/Amir9eng/node-exercises#readme"
+}
