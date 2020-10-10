@@ -1,7 +1,10 @@
-const http = require('http')
-const app = http.createServer()
+// express server
+const express = require('express')
 
-let notes = [
+
+const app = express()
+
+const notes =[
   {
     id: 1,
     content: "HTML is easy",
@@ -21,11 +24,11 @@ let notes = [
     important: true
   }
 ]
+app.get('/' , (req , res) => {
 
-const app = http.createServer((req, res) => {
-  res.writeHead(200, { 'Content-Type': 'application/json' })
-  res.end(JSON.stringify(notes))
-})
+  res.send('Hello World')
+  
+  })
 
 const PORT = 3001
 app.listen(PORT)
