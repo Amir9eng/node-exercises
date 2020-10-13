@@ -4,7 +4,9 @@ const express = require('express')
 
 const app = express()
 
-const notes =[
+app.use(express.json())
+
+let notes = [
   {
     id: 1,
     content: "HTML is easy",
@@ -24,12 +26,49 @@ const notes =[
     important: true
   }
 ]
-app.get('/' , (req , res) => {
+app.get('/api/notes/:id' , (req , res ) => {
+  const {id} = req.params
 
-  res.send('Hello World')
-  
-  })
+  const note = notes.find(note => note.id === parseInt(id))
 
-const PORT = 3001
+  if(!note) return res.status(404).send(`Note with id:${id} was not found`)
+
+  res.json(note)
+
+})
+
+app.get('/api/notes/' , (req , res ) => res.json(notes) )
+
+app.post('/api/notes/' , (req, res) =>{
+
+const newNote = req.body
+notes = notes.concat(newNote)
+res.json(notes)
+})
+
+app.patch('/api/notes/:id' , (req , res ) => {
+const {id} = req.params
+const noteUpdate = req.body
+
+const note = notes.find(note => note.id === parseInt(id))
+notes = notes.map(note => {
+  if(note.id === parseInt(id)){
+    note = {
+      ...note,
+      ...noteUpdate
+    }
+  }
+  return note
+})
+
+res.status(200).json({
+  ...note,
+  ...noteUpdate
+})
+
+})
+
+const PORT =3001
 app.listen(PORT)
 console.log('App is running on port', PORT)
+

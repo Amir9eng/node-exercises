@@ -1,0 +1,20 @@
+@url = http://localhost:3001/api/notes/
+@endpoint = http://localhost:3001/api/notes
+
+GET {{url}} 
+
+###
+
+GET {{endpoint}}/3
+###
+
+POST {{url}}
+Content-Type: application/json
+
+{
+    "id": 5,
+    "content": "inkan be",
+    "date": "201909:30:31.098Z",
+    "important": false
+
+}
