@@ -25,3 +25,7 @@ Content-Type: application/json
     "number": "70442928932"
 
 }
+
+### 
+
+DELETE {{url}}2

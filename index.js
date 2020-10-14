@@ -70,6 +70,11 @@ app.patch('/api/persons/:id', (req, res) => {
   })
 
 })
+app.delete('/api/persons/:id', (req, res)=> {
+  const {id} = req.params
+  persons = persons.filter(person => person.id !== parseInt(id))
+  res.json(persons)
+})
 
 const PORT = 3001
 app.listen(PORT)
