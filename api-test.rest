@@ -18,3 +18,13 @@ Content-Type: application/json
     "important": false
 
 }
+
+### 
+PATCH {{url}}/5
+Content-Type: application/json
+
+{
+
+    "content": "kosi nkanka"
+
+}
