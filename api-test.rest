@@ -1,30 +1,27 @@
-@url = http://localhost:3001/api/notes/
-@endpoint = http://localhost:3001/api/notes
+@url = http://localhost:3001/api/persons/
+@endpoint = http://localhost:3001/api/persons/
 
 GET {{url}} 
 
 ###
 
-GET {{endpoint}}/3
+GET {{endpoint}}4
 ###
 
 POST {{url}}
-Content-Type: application/json
+content-type: application/json
 
 {
-    "id": 5,
-    "content": "inkan be",
-    "date": "201909:30:31.098Z",
-    "important": false
-
+    "name": "Agbako", 
+    "number": "443456"
 }
 
 ### 
-PATCH {{url}}/5
+PATCH {{url}}2
 Content-Type: application/json
 
 {
 
-    "content": "kosi nkanka"
+    "number": "70442928932"
 
 }
