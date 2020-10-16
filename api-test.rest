@@ -1,5 +1,5 @@
-@url = http://localhost:3001/api/persons/
-@endpoint = http://localhost:3001/api/persons/
+@url = http://localhost:3030/api/persons/
+@endpoint = http://localhost:3030/api/persons/
 
 GET {{url}} 
 
@@ -12,8 +12,8 @@ POST {{url}}
 content-type: application/json
 
 {
-    "name": "Agbako", 
-    "number": "443456"
+    "name": "Agbaran", 
+    "number": "664453"
 }
 
 ### 

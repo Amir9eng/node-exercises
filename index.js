@@ -1,10 +1,14 @@
 // express server
 const express = require('express')
-
+const cors = require('cors')
 
 const app = express()
 
 app.use(express.json())
+app.disable('x-powered-by')
+app.use(cors())
+
+require('dotenv').config()
 
 let persons = [
   {
@@ -28,6 +32,14 @@ let persons = [
     "id": 4
   }
 ]
+const generateId = () => persons.length > 0 ? Math.max(...persons.map(person => person.id)) + 1: 1
+
+app.get('/' , (req , res) => {
+
+  res.send('hello world :smile: ')
+  
+  })
+
 app.get('/api/persons/:id', (req, res) => {
   const { id } = req.params
   const person = persons.find(person => person.id === parseInt(id))
@@ -76,7 +88,17 @@ app.delete('/api/persons/:id', (req, res)=> {
   res.json(persons)
 })
 
-const PORT = 3001
+app.post('/api/persons/', (req, res) => {
+  const newPerson = req.body
+  if (!newPerson.name || !newPerson.number ) return res.status(400).send(`Name or Number is missing`)
+  if(persons.map(person => person.name === newPerson.name)) return res.status(409).send(`Name must be unique`)
+  newPerson.id = generateId()
+  persons = persons.concat(newPerson)
+  res.json(persons)
+})
+
+
+const PORT = process.env.PORT
 app.listen(PORT)
 console.log('App is running on port', PORT)
 
