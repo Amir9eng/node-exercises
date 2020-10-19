@@ -32,13 +32,13 @@ let persons = [
     "id": 4
   }
 ]
-const generateId = () => persons.length > 0 ? Math.max(...persons.map(person => person.id)) + 1: 1
+const generateId = () => persons.length > 0 ? Math.max(...persons.map(person => person.id)) + 1 : 1
 
-app.get('/' , (req , res) => {
+app.get('/', (req, res) => {
 
   res.send('hello world :smile: ')
-  
-  })
+
+})
 
 app.get('/api/persons/:id', (req, res) => {
   const { id } = req.params
@@ -57,7 +57,7 @@ app.get('/api/persons/', (req, res) => res.json(persons))
 app.post('/api/persons/', (req, res) => {
 
   const newNote = req.body
-  persons= persons.concat(newNote)
+  persons = persons.concat(newNote)
   res.json(persons)
 })
 
@@ -82,16 +82,16 @@ app.patch('/api/persons/:id', (req, res) => {
   })
 
 })
-app.delete('/api/persons/:id', (req, res)=> {
-  const {id} = req.params
+app.delete('/api/persons/:id', (req, res) => {
+  const { id } = req.params
   persons = persons.filter(person => person.id !== parseInt(id))
   res.json(persons)
 })
 
 app.post('/api/persons/', (req, res) => {
   const newPerson = req.body
-  if (!newPerson.name || !newPerson.number ) return res.status(400).send(`Name or Number is missing`)
-  if(persons.map(person => person.name === newPerson.name)) return res.status(409).send(`Name must be unique`)
+  if (!newPerson.name || !newPerson.number) return res.status(400).send(`Name or Number is missing`)
+  if (persons.map(person => person.name === newPerson.name)) return res.status(409).send(`Name must be unique`)
   newPerson.id = generateId()
   persons = persons.concat(newPerson)
   res.json(persons)
