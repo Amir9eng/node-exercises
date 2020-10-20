@@ -89,8 +89,8 @@ app.patch('/api/persons/:id', (req, res) => {
 })
 app.delete('/api/persons/:id', (req, res) => {
   const { id } = req.params
-  if (!persons.find(person => person.id == parseInt(id))) return res.status(404).send(`note does not exist` )
-  persons = persons.filter(person => person.id !== parseInt(id)) 
+  if (!persons.find(person => person.id == parseInt(id))) return res.status(404).send(persons)
+  persons = persons.filter(person => person.id !== parseInt(id))
   res.json(persons)
 })
 
