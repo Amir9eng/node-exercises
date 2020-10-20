@@ -2,14 +2,16 @@
 const express = require('express')
 const cors = require('cors')
 const morgan = require('morgan')
+const { argv } = require('process')
 
 const app = express()
 
 app.use(express.json())
-app.use(morgan(':method :url :status :res[content-length] - :response-time ms: req[content]'))
 app.disable('x-powered-by')
 app.use(cors())
 
+morgan.token('body', (req, res) => JSON.stringify(req.body))
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'))
 require('dotenv').config()
 
 let persons = [
@@ -38,20 +40,21 @@ const generateId = () => persons.length > 0 ? Math.max(...persons.map(person => 
 
 app.get('/', (req, res) => {
 
-  res.send('hello world :smile: ')
+  res.json({ message: 'hello world ' })
 
 })
+
 
 app.get('/api/persons/:id', (req, res) => {
   const { id } = req.params
   const person = persons.find(person => person.id === parseInt(id))
-  if (!person) return res.status(404).send(`person with id:${id} was not found`)
+  if (!person) return res.status(404).json( `person with id:${id} was not found`)
   res.json(person)
 })
 
 app.get('/info/', (req, res) => {
   let numberOfPerson = persons.length
-  res.send(`Phonebook has info for ${numberOfPerson} people <br /> ${new Date()}`)
+  res.json({ message: `Phonebook has info for ${numberOfPerson} people <br /> ${new Date()}` })
 })
 
 app.get('/api/persons/', (req, res) => res.json(persons))
@@ -86,7 +89,8 @@ app.patch('/api/persons/:id', (req, res) => {
 })
 app.delete('/api/persons/:id', (req, res) => {
   const { id } = req.params
-  persons = persons.filter(person => person.id !== parseInt(id))
+  if (!persons.find(person => person.id == parseInt(id))) return res.status(404).send(`note does not exist` )
+  persons = persons.filter(person => person.id !== parseInt(id)) 
   res.json(persons)
 })
 
@@ -96,7 +100,7 @@ app.post('/api/persons/', (req, res) => {
   if (persons.map(person => person.name === newPerson.name)) return res.status(409).send(`Name must be unique`)
   newPerson.id = generateId()
   persons = persons.concat(newPerson)
-  res.json(persons)
+  res.json(newPerson)
 })
 
 
