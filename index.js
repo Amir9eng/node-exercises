@@ -48,7 +48,7 @@ app.get('/', (req, res) => {
 app.get('/api/persons/:id', (req, res) => {
   const { id } = req.params
   const person = persons.find(person => person.id === parseInt(id))
-  if (!person) return res.status(404).json( `person with id:${id} was not found`)
+  if (!person) return res.status(404).json(`person with id:${id} was not found`)
   res.json(person)
 })
 
